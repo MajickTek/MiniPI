@@ -42,7 +42,7 @@ public class Entities implements Entity{
 	@Override
 	public Vec getPosition(int entityID) {
 		game.send("entity.getTile", entityID);
-        return Vec.decode((List<Integer>)game.receive());
+        return Vec.decode((int[])game.receive());
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class Entities implements Entity{
 	@Override
 	public VecFloat getExactPosition(int entityID) {
 		game.send("entity.getPos", entityID);
-        return VecFloat.decode((List<Integer>)game.receive());
+        return VecFloat.decode((int[])game.receive());
 	}
 
 	@Override

@@ -11,13 +11,8 @@ public class Item {
 		return new Item(id);
 	}
 	
-	static Item decode(Object encoded) {
-		 if(encoded == null || !(encoded instanceof Item)) {
-	        	return id(0);
-	        } else {
-	        	Item decoded = ((Item) encoded);
-	        	return decoded;
-	        }
+	static Item decode(int encoded) {
+		 return id(encoded);
 	}
 	
 	@Override

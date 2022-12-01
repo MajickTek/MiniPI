@@ -80,13 +80,12 @@ public class Vec {
         return x + "," + y;
     }
 
-    public static Vec decode(List<Integer> encoded) {
-        if(encoded == null) {
+    public static Vec decode(int[] encoded) {
+        if(encoded == null || encoded.length == 0) {
         	return ZERO;
         } else {
-        	Integer[] ints = (Integer[]) encoded.toArray(new Integer[encoded.size()]);
-        	if(ints.length >= 2) {
-        		return xy(ints[0].intValue(), ints[1].intValue());
+        	if(encoded.length >= 2) {
+        		return xy(encoded[0], encoded[1]);
         	}
         	return ZERO;
         }

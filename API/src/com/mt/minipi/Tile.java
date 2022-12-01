@@ -26,13 +26,8 @@ public class Tile {
 		this.name = name;
 	}
 
-	public static Tile decode(Integer encoded) {
-		if (encoded == null ) {
-			return id(0);
-		} else {
-			return id(encoded.intValue());
-		}
-		
+	public static Tile decode(int encoded) {
+		return id(encoded);
 	}
 	
 	@Override

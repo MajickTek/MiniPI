@@ -17,7 +17,7 @@ public class Player implements Entity{
 	@Override
 	public Vec getPosition() {
 		game.send("player.getTile");
-		return Vec.decode((List<Integer>)game.receive());
+		return Vec.decode((int[])game.receive());
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class Player implements Entity{
 	@Override
 	public VecFloat getExactPosition() {
 		game.send("player.getPos");
-        return VecFloat.decode((List<Integer>)game.receive());
+        return VecFloat.decode((int[])game.receive());
 	}
 
 	@Override
