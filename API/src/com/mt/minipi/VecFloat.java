@@ -4,41 +4,40 @@ import java.util.Scanner;
 
 public class VecFloat {
 
-    public static final VecFloat ZERO = new VecFloat(0, 0, 0);
-    public final float x, y, z;
+    public static final VecFloat ZERO = new VecFloat(0, 0);
+    public final float x, y;
 
-    VecFloat(float x, float y, float z) {
+    VecFloat(float x, float y) {
         this.x = x;
         this.y = y;
-        this.z = z;
     }
 
     /**
      * Create
      */
-    public static VecFloat xyz(float x, float y, float z) {
-        return new VecFloat(x, y, z);
+    public static VecFloat xy(float x, float y) {
+        return new VecFloat(x, y);
     }
 
     /**
      * Add
      */
     public VecFloat add(VecFloat v) {
-        return xyz(x + v.x, y + v.y, z + v.z);
+        return xy(x + v.x, y + v.y);
     }
 
     /**
      * Subtract
      */
     public VecFloat sub(VecFloat v) {
-        return xyz(x - v.x, y - v.y, z - v.z);
+        return xy(x - v.x, y - v.y);
     }
 
     /**
      * Multiply with a float (scale)
      */
     public VecFloat mul(float s) {
-        return xyz(s * x, s * y, s * z);
+        return xy(s * x, s * y);
     }
 
     /**
@@ -52,7 +51,7 @@ public class VecFloat {
      * Scalar product
      */
     public float dot(VecFloat v) {
-        return x * v.x + y * v.y + z * v.z;
+        return x * v.x + y * v.y;
     }
 
     /**
@@ -83,13 +82,13 @@ public class VecFloat {
         return dot(this);
     }
 
-    static VecFloat decode(String encoded) {
+    public static VecFloat decode(String encoded) {
         Scanner s = new Scanner(encoded).useDelimiter("\\,");
-        return xyz(s.nextFloat(), s.nextFloat(), s.nextFloat());
+        return xy(s.nextFloat(), s.nextFloat());
     }
 
     @Override
     public final String toString() {
-        return x + "," + y + "," + z;
+        return x + "," + y;
     }
 }

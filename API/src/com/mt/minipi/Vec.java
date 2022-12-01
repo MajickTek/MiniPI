@@ -4,68 +4,66 @@ import java.util.Scanner;
 
 public class Vec {
 
-    public final static Vec ZERO = new Vec(0, 0, 0);
-    public final static int MIN_Y = -128, MAX_Y = 127;
-    public final int x, y, z;
+    public final static Vec ZERO = new Vec(0, 0);
+    public final int x, y;
 
-    Vec(int x, int y, int z) {
+    Vec(int x, int y) {
         this.x = x;
         this.y = y;
-        this.z = z;
     }
 
     /**
      * Create
      */
-    public static Vec xyz(int x, int y, int z) {
-        return new Vec(x, y, z);
+    public static Vec xy(int x, int y) {
+        return new Vec(x, y);
     }
 
     /**
      * Add
      */
     public Vec add(Vec v) {
-        return xyz(x + v.x, y + v.y, z + v.z);
+        return xy(x + v.x, y + v.y);
     }
 
     /**
      * Add
      */
-    public Vec add(int x, int y, int z) {
-        return xyz(this.x + x, this.y + y, this.z + z);
+    public Vec add(int x, int y) {
+        return xy(this.x + x, this.y + y);
     }
 
     /**
      * Subtract
      */
     public Vec sub(Vec v) {
-        return xyz(x - v.x, y - v.y, z - v.z);
+        return xy(x - v.x, y - v.y);
     }
 
     /**
      * Multiply with integer (scale)
      */
     public Vec mul(int s) {
-        return xyz(s * x, s * y, s * z);
+        return xy(s * x, s * y);
     }
 
     /**
      * Negate (multiply with -1)
      */
     public Vec neg() {
-        return xyz(-x, -y, -z);
+        return xy(-x, -y);
     }
 
     /**
      * Scalar product
      */
     public int dot(Vec v) {
-        return x * v.x + y * v.y + z * v.z;
+        return x * v.x + y * v.y;
     }
 
     @Override
     public int hashCode() {
-        return x | (y << 20) | (z << 10);
+        return x | (y << 20);
     }
 
     @Override
@@ -78,12 +76,12 @@ public class Vec {
 
     @Override
     public final String toString() {
-        return x + "," + y + "," + z;
+        return x + "," + y;
     }
 
-    static Vec decode(String encoded) {
+    public static Vec decode(String encoded) {
         Scanner s = new Scanner(encoded).useDelimiter("\\,");
-        return xyz(s.nextInt(), s.nextInt(), s.nextInt());
+        return xy(s.nextInt(), s.nextInt());
     }
 
     /**
@@ -91,17 +89,17 @@ public class Vec {
      */
     public static class Unit extends Vec {
 
-        public final static Unit X = new Unit(1, 0, 0);
-        public final static Unit Y = new Unit(0, 1, 0);
-        public final static Unit Z = new Unit(0, 0, 1);
+        public final static Unit X = new Unit(1, 0);
+        public final static Unit Y = new Unit(0, 1);
+        
 
-        Unit(int x, int y, int z) {
-            super(x, y, z);
+        Unit(int x, int y) {
+            super(x, y);
         }
 
         @Override
         public Unit neg() {
-            return new Unit(-x, -y, -z);
+            return new Unit(-x, -y);
         }
     }
 }

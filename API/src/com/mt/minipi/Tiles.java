@@ -1,0 +1,69 @@
+package com.mt.minipi;
+
+public enum Tiles {
+	GRASS(0),
+	DIRT(1),
+	FLOWER(2),
+	HOLE(3),
+	STAIRS_UP(4),
+	STAIRS_DOWN(5),
+	WATER(6),
+	ROCK(7),
+	TREE(8),
+	TREE_SAPLING(9),
+	SAND(10),
+	CACTUS(11),
+	CACTUS_SAPLING(12),
+	IRON_ORE(13),
+	GOLD_ORE(14),
+	GEM_ORE(15),
+	LAPIS_ORE(16),
+	LAVA(17),
+	LAVA_BRICK(18),
+	EXPLODED(19),
+	FARMLAND(20),
+	WHEAT(21),
+	HARD_ROCK(22),
+	INFINITE_FALL(23),
+	CLOUD(24),
+	CLOUD_ORE(25),
+	WOOD_DOOR(26),
+	STONE_DOOR(27),
+	OBSIDIAN_DOOR(28),
+	WOOD_FLOOR(29),
+	STONE_FLOOR(30),
+	OBSIDIAN_FLOOR(31),
+	WOOD_WALL(32),
+	STONE_WALL(33),
+	OBSIDIAN_WALL(34),
+	WOOL(35),
+	PATH(36),
+	RED_WOOL(37),
+	BLUE_WOOL(38),
+	GREEN_WOOL(39),
+	YELLOW_WOOL(40),
+	BLACK_WOOL(41),
+	POTATO(42),
+	MATERIAL_STONE(43),
+	MATERIAL_OBSIDIAN(44),
+	DECOR_STONE(45),
+	DECOR_OBSIDIAN(46),
+	CONNECT(255);
+	;
+	
+
+	
+	int id;
+	Tiles(int id) {
+		this.id = id;
+	}
+	
+	enum Old {
+		GRASS(0);
+
+		int id;
+		Old(int id) {
+			this.id = id;
+		}
+	}
+}
