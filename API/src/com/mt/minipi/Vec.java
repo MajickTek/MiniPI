@@ -1,8 +1,5 @@
 package com.mt.minipi;
 
-import java.util.List;
-import java.util.Scanner;
-
 public class Vec {
 
     public final static Vec ZERO = new Vec(0, 0);
@@ -89,6 +86,10 @@ public class Vec {
         	}
         	return ZERO;
         }
+    }
+    
+    public static int[] encode(Vec vec) {
+    	return new int[] {vec.x, vec.y};
     }
 
     /**

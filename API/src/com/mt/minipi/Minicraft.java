@@ -49,8 +49,8 @@ public class Minicraft{
     }
 
 	public Tile getTile(Vec position) {
-		send("world.getTile", position);
-		return Tile.decode((Integer)receive());
+		send("world.getTile", Vec.encode(position));
+		return Tile.decode((int)receive());
 	}
 	
 	public void setTile(int x, int y, Tile tile) {
@@ -58,7 +58,7 @@ public class Minicraft{
 	}
 	
 	public void setTile(Vec position, Tile tile) {
-		send("world.setTile", position, tile);
+		send("world.setTile", Vec.encode(position), Tile.encode(tile));
 	}
 	
 	public void setTiles(int x1, int y1, int x2, int y2, Tile tile) {
@@ -66,12 +66,12 @@ public class Minicraft{
 	}
 	
 	public void setTiles(Vec begin, Vec end, Tile tile) {
-		send("world.setTiles", begin, end, tile);
+		send("world.setTiles", Vec.encode(begin), Vec.encode(end), Tile.encode(tile));
 	}
 	
 	public int getPlayerEntityID() {
 		send("world.getPlayerID");
-		int id = ((Integer) receive()).intValue();
+		int id = ((int) receive());
 		return id;
 	}
 	

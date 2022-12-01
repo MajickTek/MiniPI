@@ -1,7 +1,5 @@
 package com.mt.minipi.api;
 
-import java.util.List;
-
 import com.mt.minipi.Minicraft;
 import com.mt.minipi.Vec;
 import com.mt.minipi.VecFloat;
@@ -47,18 +45,18 @@ public class Entities implements Entity{
 
 	@Override
 	public void setPosition(int entityID, Vec tile) {
-		game.send("entity.setTile", entityID, tile);
+		game.send("entity.setTile", entityID, Vec.encode(tile));
 	}
 
 	@Override
 	public VecFloat getExactPosition(int entityID) {
 		game.send("entity.getPos", entityID);
-        return VecFloat.decode((int[])game.receive());
+        return VecFloat.decode((float[])game.receive());
 	}
 
 	@Override
 	public void setExactPosition(int entityID, VecFloat position) {
-		game.send("entity.setPos", entityID, position);
+		game.send("entity.setPos", entityID, VecFloat.encode(position));
 	}
 
 }

@@ -30,6 +30,10 @@ public class Tile {
 		return id(encoded);
 	}
 	
+	public static int encode(Tile tile) {
+		return tile.id;
+	}
+	
 	@Override
 	public int hashCode() {
 		return id;

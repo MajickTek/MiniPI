@@ -1,7 +1,5 @@
 package com.mt.minipi.api;
 
-import java.util.List;
-
 import com.mt.minipi.Minicraft;
 import com.mt.minipi.Vec;
 import com.mt.minipi.VecFloat;
@@ -28,12 +26,12 @@ public class Player implements Entity{
 	@Override
 	public VecFloat getExactPosition() {
 		game.send("player.getPos");
-        return VecFloat.decode((int[])game.receive());
+        return VecFloat.decode((float[])game.receive());
 	}
 
 	@Override
 	public void setExactPosition(VecFloat position) {
-		game.send("player.setPos", position);
+		game.send("player.setPos", VecFloat.encode(position));
 	}
 
 	@Override
