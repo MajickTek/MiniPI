@@ -6,10 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class Connection implements AutoCloseable{
-	private static final int IPTOS_LOWDELAY = 0x10;
+public class Connection {
 	Socket socket;
-
 	ObjectOutputStream out;
 	ObjectInputStream in;
 	
@@ -17,12 +15,13 @@ public class Connection implements AutoCloseable{
 
 	public Connection(String host, int port) {
 		// Log.info("Connecting to " + host + ":" + port);
+		System.out.printf("Connecting to %s : %d%n", host, port);
 		if (host != null && !host.isEmpty()) {
-			try {
+			try   {
 				this.socket = new Socket(host, port);
-				socket.setTcpNoDelay(true);
-				socket.setKeepAlive(true);
-				socket.setTrafficClass(IPTOS_LOWDELAY);
+//				socket.setTcpNoDelay(true);
+//				socket.setKeepAlive(true);
+//				socket.setTrafficClass(0x10);
 				
 				
 				this.in = new ObjectInputStream(socket.getInputStream());
@@ -33,6 +32,7 @@ public class Connection implements AutoCloseable{
 			}
 		}
 		// Log.info("Connected");
+		System.out.println("Connected");
 	}
 
 	public void send(Object... parts) {
@@ -40,12 +40,11 @@ public class Connection implements AutoCloseable{
 			//drain(in);
 			for (int i = 0; i < parts.length; i++) {
 				out.writeObject(parts[i]);
-				
 			}
 			
-			if (autoFlush) {
-				flush();
-			}
+//			if (autoFlush) {
+//				flush();
+//			}
 		} catch (IOException e) {
 			throw new ConnectionException(e);
 		}
@@ -73,30 +72,30 @@ public class Connection implements AutoCloseable{
 			throw new ConnectionException(e);
 		}
 	}
-
-	public void close() {//from autocloseable
-		close(in, out);
-		try {
-			socket.close();
-		} catch (IOException e) {
-		}
-	}
-
-	public void close(Closeable... cs) {
-		for (Closeable c : cs) {
-			try {
-				if (c != null) {
-					c.close();
-				}
-			} catch (IOException e) {
-			}
-		}
-	}
+//
+//	public void close() {//from autocloseable
+//		close(in, out);
+//		try {
+//			socket.close();
+//		} catch (IOException e) {
+//		}
+//	}
+//
+//	public void close(Closeable... cs) {
+//		for (Closeable c : cs) {
+//			try {
+//				if (c != null) {
+//					c.close();
+//				}
+//			} catch (IOException e) {
+//			}
+//		}
+//	}
 
 	public void autoFlush(boolean flush) {
 		this.autoFlush = flush;
-		if (flush) {
-			flush();
-		}
+//		if (flush) {
+//			flush();
+//		}
 	}
 }

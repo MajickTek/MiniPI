@@ -1,5 +1,7 @@
 package com.mt.minipi;
 
+import java.net.InetAddress;
+
 import com.mt.minipi.api.Entities;
 import com.mt.minipi.api.Events;
 import com.mt.minipi.api.Player;
@@ -7,7 +9,7 @@ import com.mt.minipi.tool.Tools;
 
 public class Minicraft{
 	Connection connection;
-	public static final int DEFAULT_PORT = 4711;
+	public static final int DEFAULT_PORT = 25565;
 
 	public final Tools tools = new Tools(this);
 	public final Player player = new Player(this);
@@ -19,7 +21,7 @@ public class Minicraft{
 	}
 
 	public static Minicraft connect() {
-		return connect("127.0.0.1");
+		return connect("localhost");
 	}
 
 	public static Minicraft connect(String host) {
@@ -32,7 +34,7 @@ public class Minicraft{
 
 	public static Minicraft connect(String[] args) {
 		// System.err.println(Arrays.asList(args));
-		String host = args.length >= 1 ? args[0] : "127.0.0.1";
+		String host = args.length >= 1 ? args[0] : "localhost";
 		int port = args.length >= 2 ? Integer.parseInt(args[1]) : DEFAULT_PORT;
 		return connect(host, port);
 	}

@@ -8,25 +8,30 @@ import java.net.Socket;
 public class Server {
 
 	public static void main(String[] args) {
-		try (ServerSocket server = new ServerSocket(4711)) {
-			while(true) {
+		try (ServerSocket server = new ServerSocket(25565)) {
+			
 				System.out.println("waiting for client");
 				Socket socket = server.accept();
+				
 				
 				ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 				
 				Object text = ois.readObject();
 				System.out.println("received " + text.toString());
-				ois.close();
-				socket.close();
+				
 				if (text instanceof String) {
 					String t = (String) text;
 					if(t.equalsIgnoreCase("server.stop")) {
-						break;
+						ois.close();
+						socket.close();
+						
 					}
 					
 				}
-			}
+				
+				ois.close();
+				socket.close();
+			
 		} catch (IOException | ClassNotFoundException e) {
 			
 			e.printStackTrace();
