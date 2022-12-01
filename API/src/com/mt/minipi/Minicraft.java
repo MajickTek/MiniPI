@@ -53,5 +53,50 @@ public class Minicraft implements AutoCloseable{
 		connection.close();
 	}
 	
+	public Tile getTile(Vec position) {
+		send("world.getTile", position);
+		return Tile.decode(receive());
+	}
 	
+	public void setTile(int x, int y, Tile tile) {
+		setTile(Vec.xy(x, y), tile);
+	}
+	
+	public void setTile(Vec position, Tile tile) {
+		send("world.setTile", position, tile);
+	}
+	
+	public void setTiles(int x1, int y1, int x2, int y2, Tile tile) {
+		setTiles(Vec.xy(x1, y1), Vec.xy(x2, y2), tile);
+	}
+	
+	public void setTiles(Vec begin, Vec end, Tile tile) {
+		send("world.setTiles", begin, end, tile);
+	}
+	
+	public int getPlayerEntityID() {
+		send("world.getPlayerID");
+		int id = Integer.parseInt(receive());
+		return id;
+	}
+	
+	void setting(String key, boolean value) {
+		send("world.setting", key, value ? 1 : 0);
+	}
+	
+	public void saveCheckpoint() {
+		send("world.checkpoint.save");
+	}
+	
+	public void restoreCheckpoint() {
+		send("world.checkpoint.restore");
+	}
+	
+	public void autoFlush(boolean auto) {
+		connection.autoFlush(auto);
+	}
+	
+	public void flush() {
+		connection.flush();
+	}
 }

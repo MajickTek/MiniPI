@@ -145,9 +145,39 @@ public enum Tiles {
 		TORCH_YELLOW_WOOL(54),
 		TORCH_BLACK_WOOL(55)
 		;
+		
+		
 		int id;
 		Old(int id) {
 			this.id = id;
 		}
+	}
+	
+	enum Notch {
+		GRASS,
+		ROCK,
+		WATER,
+		FLOWER,
+		TREE,
+		DIRT,
+		SAND,
+		CACTUS,
+		HOLE,
+		TREE_SAPLING,
+		CACTUS_SAPLING,
+		FARMLAND,
+		WHEAT,
+		LAVA,
+		STAIRS_DOWN,
+		STAIRS_UP,
+		INFINITE_FALL,
+		CLOUD,
+		HARD_ROCK,
+		IRON_ORE,
+		GOLD_ORE,
+		GEM_ORE,
+		CLOUD_CACTUS;
+		
+		int getID() {return ordinal();}
 	}
 }
