@@ -1,18 +1,18 @@
 package com.mt.minipi;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class Connection {
+public class Connection implements AutoCloseable{
 	private static final int IPTOS_LOWDELAY = 0x10;
 	Socket socket;
-	BufferedWriter out;
-	BufferedReader in;
+
+	ObjectOutputStream out;
+	ObjectInputStream in;
+	
 	boolean autoFlush = true;
 
 	public Connection(String host, int port) {
@@ -23,12 +23,13 @@ public class Connection {
 				socket.setTcpNoDelay(true);
 				socket.setKeepAlive(true);
 				socket.setTrafficClass(IPTOS_LOWDELAY);
-
-				this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
+				
+				
+				this.in = new ObjectInputStream(socket.getInputStream());
+				this.out = new ObjectOutputStream(socket.getOutputStream());
+				
 			} catch (IOException e) {
-				throw new ConnectionException("Couldn't connect to Minecraft, is it running?");
+				throw new ConnectionException("Couldn't connect to Minicraft, is it running?");
 			}
 		}
 		// Log.info("Connected");
@@ -36,16 +37,12 @@ public class Connection {
 
 	public void send(Object... parts) {
 		try {
-			drain(in);
+			//drain(in);
 			for (int i = 0; i < parts.length; i++) {
-				out.write(parts[i].toString());
-				if (i == 0) {
-					out.write('(');
-				} else if (i < parts.length - 1) {
-					out.write(',');
-				}
+				out.writeObject(parts[i]);
+				
 			}
-			out.write(")\n");
+			
 			if (autoFlush) {
 				flush();
 			}
@@ -62,22 +59,22 @@ public class Connection {
 		}
 	}
 
-	public void drain(BufferedReader in) throws IOException {
-		while (in.ready()) {
-			int c = in.read();
-			System.err.print((char) c);
-		}
-	}
+//	public void drain(ObjectInputStream in) throws IOException {
+//		while (in.ready()) {
+//			int c = in.read();
+//			System.err.print((char) c);
+//		}
+//	}
 
-	public String receive() {
+	public Object receive() {
 		try {
-			return in.readLine();
-		} catch (IOException e) {
+			return in.readObject();
+		} catch (IOException | ClassNotFoundException e) {
 			throw new ConnectionException(e);
 		}
 	}
 
-	public void close() {
+	public void close() {//from autocloseable
 		close(in, out);
 		try {
 			socket.close();

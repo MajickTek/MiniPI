@@ -1,5 +1,6 @@
 package com.mt.minipi;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class VecFloat {
@@ -82,9 +83,16 @@ public class VecFloat {
         return dot(this);
     }
 
-    public static VecFloat decode(String encoded) {
-        Scanner s = new Scanner(encoded).useDelimiter("\\,");
-        return xy(s.nextFloat(), s.nextFloat());
+    public static VecFloat decode(List<Integer> encoded) {
+    	if(encoded == null) {
+        	return ZERO;
+        } else {
+        	Integer[] ints = (Integer[]) encoded.toArray(new Integer[encoded.size()]);
+        	if(ints.length >= 2) {
+        		return xy(ints[0].intValue(), ints[1].intValue());
+        	}
+        	return ZERO;
+        }
     }
 
     @Override

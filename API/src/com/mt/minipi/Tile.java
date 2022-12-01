@@ -26,8 +26,13 @@ public class Tile {
 		this.name = name;
 	}
 
-	public static Tile decode(String s) {
-		return id(Integer.parseInt(s));
+	public static Tile decode(Integer encoded) {
+		if (encoded == null ) {
+			return id(0);
+		} else {
+			return id(encoded.intValue());
+		}
+		
 	}
 	
 	@Override

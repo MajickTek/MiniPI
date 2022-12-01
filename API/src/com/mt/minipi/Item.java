@@ -11,8 +11,13 @@ public class Item {
 		return new Item(id);
 	}
 	
-	static Item decode(String s) {
-		return id(Integer.parseInt(s));
+	static Item decode(Object encoded) {
+		 if(encoded == null || !(encoded instanceof Item)) {
+	        	return id(0);
+	        } else {
+	        	Item decoded = ((Item) encoded);
+	        	return decoded;
+	        }
 	}
 	
 	@Override

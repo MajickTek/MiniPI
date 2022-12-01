@@ -1,5 +1,6 @@
 package com.mt.minipi;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Vec {
@@ -79,9 +80,16 @@ public class Vec {
         return x + "," + y;
     }
 
-    public static Vec decode(String encoded) {
-        Scanner s = new Scanner(encoded).useDelimiter("\\,");
-        return xy(s.nextInt(), s.nextInt());
+    public static Vec decode(List<Integer> encoded) {
+        if(encoded == null) {
+        	return ZERO;
+        } else {
+        	Integer[] ints = (Integer[]) encoded.toArray(new Integer[encoded.size()]);
+        	if(ints.length >= 2) {
+        		return xy(ints[0].intValue(), ints[1].intValue());
+        	}
+        	return ZERO;
+        }
     }
 
     /**

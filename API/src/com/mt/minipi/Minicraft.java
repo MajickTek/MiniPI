@@ -5,7 +5,7 @@ import com.mt.minipi.api.Events;
 import com.mt.minipi.api.Player;
 import com.mt.minipi.tool.Tools;
 
-public class Minicraft implements AutoCloseable{
+public class Minicraft{
 	Connection connection;
 	public static final int DEFAULT_PORT = 4711;
 
@@ -41,21 +41,16 @@ public class Minicraft implements AutoCloseable{
 		connection.send(parts);
 	}
 	
-	public String receive() {
+	public Object receive() {
         if (!connection.autoFlush) {
             throw new IllegalStateException("Methods that return data aren't supported with autoflush off!");
         }
         return connection.receive();
     }
 
-	@Override
-	public void close() throws Exception {
-		connection.close();
-	}
-	
 	public Tile getTile(Vec position) {
 		send("world.getTile", position);
-		return Tile.decode(receive());
+		return Tile.decode((Integer)receive());
 	}
 	
 	public void setTile(int x, int y, Tile tile) {
@@ -76,7 +71,7 @@ public class Minicraft implements AutoCloseable{
 	
 	public int getPlayerEntityID() {
 		send("world.getPlayerID");
-		int id = Integer.parseInt(receive());
+		int id = ((Integer) receive()).intValue();
 		return id;
 	}
 	

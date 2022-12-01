@@ -1,5 +1,6 @@
 package com.mt.minipi.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mt.minipi.EventFactory;
@@ -18,6 +19,8 @@ public class Events {
 	
 	public List<TileHitEvent> pollTileHits() {
         game.send("events.block.hits");
-        return EventFactory.createTileHitEvents(game.receive());
+        List<Integer> hits = (List<Integer>) game.receive();
+        
+        return EventFactory.createTileHitEvents(hits);
     }
 }
